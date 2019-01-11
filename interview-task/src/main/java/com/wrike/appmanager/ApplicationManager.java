@@ -1,56 +1,37 @@
-package com.wrike;
+package com.wrike.appmanager;
 
-import org.junit.After;
-import org.junit.Before;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.Assert.fail;
-
-public class TestBase {
-    protected WebDriver wd;
-    private String baseUrl;
+public class ApplicationManager {
+    public WebDriver wd;
+    public StringBuffer verificationErrors = new StringBuffer();
     private boolean acceptNextAlert = true;
-    private StringBuffer verificationErrors = new StringBuffer();
 
-    @Before
-    public void setUp() throws Exception {
-        init();
-    }
-
-    private void init() {
+    public void init() {
         wd = new FirefoxDriver();
-        baseUrl = "https://www.wrike.com/";
         wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         wd.get("https://www.wrike.com/");
     }
 
-    protected void gotoQnaSection() {
+    public void gotoQnaSection() {
         wd.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Help us provide you the best possible experience:'])[1]/following::button[1]")).click();
         wd.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Just looking'])[1]/following::button[1]")).click();
         wd.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Just looking'])[1]/following::button[6]")).click();
-        wd.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='No'])[1]/following::button[1]")).click();
-        wd.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Just looking'])[1]/following::button[6]")).click();
         wd.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Other'])[1]/following::button[1]")).click();
-        wd.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='contact us'])[2]/following::button[1]")).click();
     }
 
-    protected void login(String email) {
+    public void login(String email) {
         wd.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Enter your business email'])[2]/following::button[1]")).click();
         wd.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Enter your business email'])[4]/following::input[1]")).clear();
         wd.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Enter your business email'])[4]/following::input[1]")).sendKeys(email);
         wd.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Enter your business email'])[4]/following::button[1]")).click();
     }
 
-    @After
-    public void tearDown() throws Exception {
+    public void stop() {
         wd.quit();
-        String verificationErrorString = verificationErrors.toString();
-        if (!"".equals(verificationErrorString)) {
-            fail(verificationErrorString);
-        }
     }
 
     private boolean isElementPresent(By by) {
@@ -86,10 +67,7 @@ public class TestBase {
         }
     }
 
-    protected void checkTwitterLink() {
-        wd.findElement(By.cssSelector("svg.wg-footer__social-icon > use")).click();
-        // ERROR: Caught exception [ERROR: Unsupported command [selectWindow | win_ser_1 | ]]
-        wd.close();
-        // ERROR: Caught exception [ERROR: Unsupported command [selectWindow | win_ser_local | ]]
+    public void checkTwitterLink() {
+//        wd.findElement(By.cssSelector("svg.wg-footer__social-icon > use")).click();
     }
 }
