@@ -6,7 +6,7 @@ public class RegistrationTest extends TestBase {
 
     @Test
     public void testUntitledTestCase() throws Exception {
-        app.login("abcdef+wpt@wriketask.qaa");
+        app.login(System.currentTimeMillis()+"+wpt@wriketask.qaa");
         app.gotoQnaSection();
         app.checkTwitterLink();
     }
