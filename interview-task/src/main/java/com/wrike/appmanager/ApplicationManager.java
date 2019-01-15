@@ -15,7 +15,7 @@ public class ApplicationManager {
 
     public void init() {
         driver = new FirefoxDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.get("https://www.wrike.com/");
     }
 
@@ -33,6 +33,8 @@ public class ApplicationManager {
         driver.findElement(By.xpath("/html/body/div[1]/main/div/div/div[2]/div/div[2]/div/form/div[3]/label[1]/button")).click();
         driver.findElement(By.xpath("/html/body/div[1]/main/div/div/div[2]/div/div[2]/div/form/button")).click();
 
+        Assert.assertTrue(driver.findElement(By.xpath("/html/body/div[1]/main/div/div/div[2]/div/div[2]/div/form/button")).isDisplayed());
+
     }
 
     public void login(String email) {
@@ -41,10 +43,10 @@ public class ApplicationManager {
         driver.findElement(By.xpath("//*[@id=\"modal-pro\"]/form/label[1]/input")).sendKeys(email);
         driver.findElement(By.xpath("//*[@id=\"modal-pro\"]/form/label[2]/button")).click();
 
-        WebDriverWait wait = new WebDriverWait(driver, 30);
+        WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated((By.cssSelector("[id ^= I0_]"))));
-        String url = driver.getCurrentUrl();
-        Assert.assertEquals("https://www.wrike.com/resend/", url);
+        String currentUrl = driver.getCurrentUrl();
+        Assert.assertEquals("https://www.wrike.com/resend/", currentUrl);
 
     }
 
