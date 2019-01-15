@@ -94,6 +94,9 @@ public class ApplicationManager {
 
     public void ResendEmail() {
         driver.findElement(By.xpath("/html/body/div[1]/main/div/div/div[2]/div/div[1]/p[3]/button")).click();
-        Assert.assertFalse(driver.findElement(By.xpath("/html/body/div[1]/main/div/div/div[2]/div/div[2]/div/form/button")).isDisplayed());
+
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated((By.xpath(".//span[text()='again.']"))));
+        Assert.assertFalse(driver.findElement(By.xpath("/html/body/div[1]/main/div/div/div[2]/div/div[1]/p[3]/button")).isDisplayed());
     }
 }
