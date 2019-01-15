@@ -18,5 +18,4 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
-/interview-task/target/allure-results
 /interview-task/.allure
