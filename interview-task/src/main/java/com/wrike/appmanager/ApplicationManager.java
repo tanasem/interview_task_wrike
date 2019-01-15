@@ -33,7 +33,8 @@ public class ApplicationManager {
         driver.findElement(By.xpath("/html/body/div[1]/main/div/div/div[2]/div/div[2]/div/form/div[3]/label[1]/button")).click();
         driver.findElement(By.xpath("/html/body/div[1]/main/div/div/div[2]/div/div[2]/div/form/button")).click();
 
-        Assert.assertTrue(driver.findElement(By.xpath("/html/body/div[1]/main/div/div/div[2]/div/div[2]/div/form/button")).isDisplayed());
+        wait.until(ExpectedConditions.visibilityOfElementLocated((By.cssSelector("[class ^= survey-success]"))));
+        Assert.assertFalse(driver.findElement(By.xpath("/html/body/div[1]/main/div/div/div[2]/div/div[2]/div/form/button")).isDisplayed());
 
     }
 
@@ -93,5 +94,6 @@ public class ApplicationManager {
 
     public void ResendEmail() {
         driver.findElement(By.xpath("/html/body/div[1]/main/div/div/div[2]/div/div[1]/p[3]/button")).click();
+        Assert.assertFalse(driver.findElement(By.xpath("/html/body/div[1]/main/div/div/div[2]/div/div[2]/div/form/button")).isDisplayed());
     }
 }
