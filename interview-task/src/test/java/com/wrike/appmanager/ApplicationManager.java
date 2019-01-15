@@ -19,6 +19,18 @@ public class ApplicationManager {
         driver.get("https://www.wrike.com/");
     }
 
+    public void login(String email) {
+        driver.findElement(By.xpath("/html/body/div[1]/header/div[3]/div[2]/div/div/div[2]/div/form/button")).click();
+        driver.findElement(By.xpath("//*[@id=\"modal-pro\"]/form/label[1]/input")).clear();
+        driver.findElement(By.xpath("//*[@id=\"modal-pro\"]/form/label[1]/input")).sendKeys(email);
+        driver.findElement(By.xpath("//*[@id=\"modal-pro\"]/form/label[2]/button")).click();
+
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated((By.cssSelector("[id ^= I0_]"))));
+        String currentUrl = driver.getCurrentUrl();
+        Assert.assertEquals("https://www.wrike.com/resend/", currentUrl);
+
+    }
 
     public void gotoQnaSection() {
         driver.switchTo().frame(1);
@@ -38,17 +50,12 @@ public class ApplicationManager {
 
     }
 
-    public void login(String email) {
-        driver.findElement(By.xpath("/html/body/div[1]/header/div[3]/div[2]/div/div/div[2]/div/form/button")).click();
-        driver.findElement(By.xpath("//*[@id=\"modal-pro\"]/form/label[1]/input")).clear();
-        driver.findElement(By.xpath("//*[@id=\"modal-pro\"]/form/label[1]/input")).sendKeys(email);
-        driver.findElement(By.xpath("//*[@id=\"modal-pro\"]/form/label[2]/button")).click();
+    public void ResendEmail() {
+        driver.findElement(By.xpath("/html/body/div[1]/main/div/div/div[2]/div/div[1]/p[3]/button")).click();
 
         WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.visibilityOfElementLocated((By.cssSelector("[id ^= I0_]"))));
-        String currentUrl = driver.getCurrentUrl();
-        Assert.assertEquals("https://www.wrike.com/resend/", currentUrl);
-
+        wait.until(ExpectedConditions.visibilityOfElementLocated((By.xpath(".//span[text()='again.']"))));
+        Assert.assertFalse(driver.findElement(By.xpath("/html/body/div[1]/main/div/div/div[2]/div/div[1]/p[3]/button")).isDisplayed());
     }
 
     public void stop() {
@@ -89,14 +96,7 @@ public class ApplicationManager {
     }
 
     public void checkTwitterLink() {
-//        driver.findElement(By.cssSelector("svg.wg-footer__social-icon > use")).click();
+
     }
 
-    public void ResendEmail() {
-        driver.findElement(By.xpath("/html/body/div[1]/main/div/div/div[2]/div/div[1]/p[3]/button")).click();
-
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.visibilityOfElementLocated((By.xpath(".//span[text()='again.']"))));
-        Assert.assertFalse(driver.findElement(By.xpath("/html/body/div[1]/main/div/div/div[2]/div/div[1]/p[3]/button")).isDisplayed());
-    }
 }
