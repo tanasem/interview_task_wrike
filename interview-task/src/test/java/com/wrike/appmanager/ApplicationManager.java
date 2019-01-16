@@ -2,6 +2,7 @@ package com.wrike.appmanager;
 
 import org.junit.Assert;
 import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -14,16 +15,16 @@ public class ApplicationManager {
     private boolean acceptNextAlert = true;
 
     public void init() {
-        driver = new FirefoxDriver();
+        driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.get("https://www.wrike.com/");
     }
 
     public void login(String email) {
-        driver.findElement(By.xpath("/html/body/div[1]/header/div[3]/div[2]/div/div/div[2]/div/form/button")).click();
+        driver.findElement(By.xpath("//div[@class='r']//em[contains(text(),'for free')]")).click();
         driver.findElement(By.xpath("//*[@id=\"modal-pro\"]/form/label[1]/input")).clear();
         driver.findElement(By.xpath("//*[@id=\"modal-pro\"]/form/label[1]/input")).sendKeys(email);
-        driver.findElement(By.xpath("//*[@id=\"modal-pro\"]/form/label[2]/button")).click();
+        driver.findElement(By.xpath("//button[contains(text(),'Create my Wrike account')]")).click();
 
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated((By.cssSelector("[id ^= I0_]"))));
@@ -40,23 +41,31 @@ public class ApplicationManager {
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.numberOfElementsToBe(By.cssSelector("[id ^= I0_]"), 0));
 
-        driver.findElement(By.xpath("/html/body/div[1]/main/div/div/div[2]/div/div[2]/div/form/div[1]/label[1]/button")).click();
-        driver.findElement(By.xpath("/html/body/div[1]/main/div/div/div[2]/div/div[2]/div/form/div[2]/label[1]/button")).click();
-        driver.findElement(By.xpath("/html/body/div[1]/main/div/div/div[2]/div/div[2]/div/form/div[3]/label[1]/button")).click();
-        driver.findElement(By.xpath("/html/body/div[1]/main/div/div/div[2]/div/div[2]/div/form/button")).click();
+        driver.findElement(By.xpath("//form/div[1]/label[1]/button")).click();
+        driver.findElement(By.xpath("//form/div[2]/label[1]/button")).click();
+        driver.findElement(By.xpath("//form/div[3]/label[1]/button")).click();
+        driver.findElement(By.xpath("//form[@name='survey-form']//button[@type='submit']")).click();
 
         wait.until(ExpectedConditions.visibilityOfElementLocated((By.cssSelector("[class ^= survey-success]"))));
-        Assert.assertFalse(driver.findElement(By.xpath("/html/body/div[1]/main/div/div/div[2]/div/div[2]/div/form/button")).isDisplayed());
+        Assert.assertFalse(driver.findElement(By.xpath("//form[@name='survey-form']//button[@type='submit']")).isDisplayed());
 
     }
 
     public void ResendEmail() {
-        driver.findElement(By.xpath("/html/body/div[1]/main/div/div/div[2]/div/div[1]/p[3]/button")).click();
+       driver.findElement(By.xpath("/html/body/div[1]/main/div/div/div[2]/div/div[1]/p[3]/button")).click();
 
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated((By.xpath(".//span[text()='again.']"))));
-        Assert.assertFalse(driver.findElement(By.xpath("/html/body/div[1]/main/div/div/div[2]/div/div[1]/p[3]/button")).isDisplayed());
+
+        Assert.assertTrue(driver.findElement(By.xpath(".//span[text()='again.']")).isDisplayed());
     }
+
+    public void checkTwitterLink() {
+        Assert.assertTrue(driver.findElement(By.xpath("//a[@href='https://twitter.com/wrike']")).isDisplayed());
+//        Assert.assertTrue(driver.findElement(By.xpath(".//*[name()='svg'][id='twitter')]")).isDisplayed());
+
+    }
+
 
     public void stop() {
         driver.quit();
@@ -93,10 +102,6 @@ public class ApplicationManager {
         } finally {
             acceptNextAlert = true;
         }
-    }
-
-    public void checkTwitterLink() {
-
     }
 
 }
