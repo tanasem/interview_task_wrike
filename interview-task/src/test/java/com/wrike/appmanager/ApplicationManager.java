@@ -61,9 +61,7 @@ public class ApplicationManager {
     }
 
     public void checkTwitterLink() {
-        Assert.assertTrue(driver.findElement(By.xpath("//a[@href='https://twitter.com/wrike']")).isDisplayed());
-//        Assert.assertTrue(driver.findElement(By.xpath(".//*[name()='svg'][id='twitter')]")).isDisplayed());
-
+        Assert.assertTrue(driver.findElement(By.xpath("//ul[@class='wg-footer__social-list']//a[@href='https://twitter.com/wrike']//*[local-name()='svg']/*[local-name()='use' and contains (@*, 'twitter')]")).isDisplayed());
     }
 
 
