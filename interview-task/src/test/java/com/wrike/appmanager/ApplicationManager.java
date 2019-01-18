@@ -1,7 +1,7 @@
 package com.wrike.appmanager;
 
 import com.wrike.pages.MainPage;
-import com.wrike.pages.QNAEmailPage;
+import com.wrike.pages.SurveyPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -9,18 +9,17 @@ import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
 
+    public StringBuffer verificationErrors = new StringBuffer();
     private WebDriver driver;
     private MainPage mainPage;
-    private QNAEmailPage qnaEmailPage;
-
-    public StringBuffer verificationErrors = new StringBuffer();
+    private SurveyPage surveyPage;
 
     public ApplicationManager() {
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
         mainPage = new MainPage(driver);
-        qnaEmailPage = new QNAEmailPage(driver);
+        surveyPage = new SurveyPage(driver);
 
     }
 
@@ -28,8 +27,8 @@ public class ApplicationManager {
         return mainPage;
     }
 
-    public QNAEmailPage qnaEmailPage() {
-        return qnaEmailPage;
+    public SurveyPage qnaEmailPage() {
+        return surveyPage;
     }
 
     public void goToMainPage() {

@@ -14,7 +14,7 @@ import org.junit.Test;
 */
 
 
-public class StartForFreeTest extends TestBase {
+public class GetStartedForFreeTest extends TestBase {
 
     @Test
     public void testCase() {
@@ -42,7 +42,7 @@ public class StartForFreeTest extends TestBase {
         app.qnaEmailPage().checkResendEmail();
 
         //Step 7
-        app.qnaEmailPage().checkTwitterLink();
+        app.qnaEmailPage().checkTwitterButton();
     }
 
 }
