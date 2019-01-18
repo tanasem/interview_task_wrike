@@ -6,25 +6,24 @@ import org.junit.Before;
 
 import static org.junit.Assert.fail;
 
+
 public class TestBase {
 
     protected final ApplicationManager app = new ApplicationManager();
 
     @Before
-    public void setUp() throws Exception {
-        app.init();
+    public void setUp() {
+        app.goToMainPage();
     }
 
+
     @After
-    public void tearDown() throws Exception {
-        app.stop();
+    public void tearDown() {
+        app.quit();
         String verificationErrorString = app.verificationErrors.toString();
         if (!"".equals(verificationErrorString)) {
             fail(verificationErrorString);
         }
     }
 
-    public ApplicationManager getApp() {
-        return app;
-    }
 }
