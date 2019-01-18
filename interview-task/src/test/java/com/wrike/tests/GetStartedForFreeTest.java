@@ -29,8 +29,9 @@ public class GetStartedForFreeTest extends TestBase {
         app.mainPage().inputEmail(System.currentTimeMillis() + "+wpt@wriketask.qaa");
 
         //Step 4
+
         app.mainPage().createAccount();
-        app.mainPage().checkUserIsOnWrikeResendPage();
+        app.mainPage().checkUserIsOnSurveyPage();
 
         //Step 5
         app.qnaEmailPage().closeGoogleIframe();

@@ -2,6 +2,7 @@ package com.wrike.appmanager;
 
 import com.wrike.pages.MainPage;
 import com.wrike.pages.SurveyPage;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -31,6 +32,7 @@ public class ApplicationManager {
         return surveyPage;
     }
 
+    @Step
     public void goToMainPage() {
         driver.get("https://www.wrike.com/");
     }

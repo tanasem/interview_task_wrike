@@ -1,5 +1,6 @@
 package com.wrike.pages;
 
+import io.qameta.allure.Step;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -23,6 +24,7 @@ public class SurveyPage extends Page {
         super(driver);
     }
 
+    @Step
     public void closeGoogleIframe() {
         driver.switchTo().frame(1);
         seleniumHelper.click(CLOSE_GOOGLE_IFRAME_BUTTON_LOCATOR);
@@ -31,6 +33,7 @@ public class SurveyPage extends Page {
         wait.until(ExpectedConditions.numberOfElementsToBe(GOOGLE_IFRAME_LOCATOR, 0));
     }
 
+    @Step
     public void fillQNASection() {
         seleniumHelper.click(ANSWER_FIRST_QUESTION_LOCATOR);
         seleniumHelper.click(ANSWER_SECOND_QUESTION_LOCATOR);
@@ -38,20 +41,24 @@ public class SurveyPage extends Page {
         seleniumHelper.click(SUBMIT_BUTTON_LOCATOR);
     }
 
+    @Step
     public void checkAnswersAreSubmitted() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(SURVEY_SUCESS_FORM_LOCATOR));
         Assert.assertFalse(driver.findElement(SUBMIT_BUTTON_LOCATOR).isDisplayed());
     }
 
+    @Step
     public void resendEmail() {
         seleniumHelper.click(RESEND_EMAIL_BUTTON_LOCATOR);
     }
 
+    @Step
     public void checkResendEmail() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(RESEND_EMAIL_FLAG_LOCATOR));
         Assert.assertTrue(driver.findElement(RESEND_EMAIL_FLAG_LOCATOR).isDisplayed());
     }
 
+    @Step
     public void checkTwitterButton() {
         Assert.assertTrue(driver.findElement(TWITTER_BUTTON_LOCATOR).isDisplayed());
     }
